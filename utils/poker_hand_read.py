@@ -279,6 +279,6 @@ def gg_read_hand(hand_file):
     end_date = date_list[0]
     end_time = time_list[0]
     
-    return hand_id_list, card_list, date_list, time_list, position_list, chip_list, rake_list, jackpot_list, c_list, session_c, start_date, start_time, end_date, end_time, game_type
+    return hand_id_list, card_list, date_list, time_list, position_list, chip_list, rake_list, jackpot_list, c_list, session_c, start_date, start_time, end_date, end_time, game_type, hands
         
     
