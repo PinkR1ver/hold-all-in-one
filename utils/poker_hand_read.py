@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def gg_hero_c_focus(hand):
      
     for j in range(2, 8):
@@ -171,6 +174,7 @@ def gg_read_hand(hand_file):
     file_element = file_name.split('-')
     
     level = int(float(file_element[4]) * 100)
+    big_blind = float(file_element[4])
     
     if 'RushAndCash' in file_element[2]:
         game_type = f'zoom NL{level}$'
@@ -215,7 +219,7 @@ def gg_read_hand(hand_file):
             else:
                 break
         
-        hand_id = hand[0].split(' ')[2].replace('#', '')
+        hand_id = hand[0].split(' ')[2].replace('#', '').replace(':', '')
         date = hand[0].split(' ')[-2]
         time = hand[0].split(' ')[-1]
         position = 0
@@ -230,6 +234,10 @@ def gg_read_hand(hand_file):
             
         card_line = hand[10 + position]
         card = card_line.split('[')[-1].replace(']', '')
+        
+        pot = 0
+        rake = 0
+        jackpot = 0
             
         for j in range(-8, -6):
             if 'Total' in hand[j]:
@@ -245,6 +253,8 @@ def gg_read_hand(hand_file):
                 rake = rake.split('$')[-1]
                 rake = rake.replace(' ', '')
                 rake = float(rake)
+                if rake !=0:
+                    pass
                 
                 jackpot = pot_line.split('|')[2]
                 jackpot = jackpot.split('$')[-1]
@@ -255,7 +265,7 @@ def gg_read_hand(hand_file):
                 
                 
         result_line = hand[-7 + position]
-        if 'folded' or 'lost' in result_line:
+        if 'folded' in result_line or 'lost' in result_line:
             rake = 0
             
         hand_id_list.append(hand_id)
@@ -267,9 +277,13 @@ def gg_read_hand(hand_file):
         rake_list.append(rake)
         jackpot_list.append(jackpot)
         
-        
+    
+    chip_list = np.array(chip_list)
+    rake_list = np.array(rake_list)
+    jackpot_list = np.array(jackpot_list)
+      
     for i in range(1, len(hands)):
-        c_list.append(chip_list[i] - chip_list[i-1])
+        c_list.append(np.around(chip_list[i] - chip_list[i - 1], 2))
         
     c_list.append(gg_hero_c_focus(hands[-1]))
     
@@ -279,6 +293,6 @@ def gg_read_hand(hand_file):
     end_date = date_list[0]
     end_time = time_list[0]
     
-    return hand_id_list, card_list, date_list, time_list, position_list, chip_list, rake_list, jackpot_list, c_list, session_c, start_date, start_time, end_date, end_time, game_type, hands
+    return hand_id_list, card_list, date_list, time_list, position_list, chip_list, rake_list, jackpot_list, c_list, session_c, start_date, start_time, end_date, end_time, game_type, big_blind, hands
         
     
