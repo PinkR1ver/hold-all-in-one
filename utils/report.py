@@ -1,7 +1,8 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-
+from matplotlib import style
+style.use('seaborn-v0_8-dark')
 
 
 def all_time_report(data_path):
