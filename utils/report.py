@@ -65,13 +65,13 @@ def all_time_report(data_path):
     
     fig.subplots_adjust(left=0.3)
     
-    fig.text(0.05, 0.65, f'Profit: {np.round(np.sum(profit_c_list), 2)}$', color='blue', fontsize=15)
+    fig.text(0.05, 0.65, f'Profit: {np.round(np.sum(profit_c_list), 2)}$ + {np.round(np.sum(jackpot_c_list), 2)}$', color='blue', fontsize=15)
     fig.text(0.05, 0.6, f'Rake: {np.round(np.sum(rake_c_list), 2)}$', color='orange', fontsize=15)
     fig.text(0.05, 0.55, f'Jackpot: {np.round(np.sum(jackpot_c_list), 2)}$', color='green', fontsize=15)
     fig.text(0.05, 0.5, f'Premium: {np.round(np.sum(premium_c_list), 2)}$', color='red', fontsize=15)
     fig.text(0.05, 0.45, f'Real Rake: {np.round(np.sum(rake_c_list) - np.sum(jackpot_c_list), 2)}$', color='black', fontsize=15)
-    fig.text(0.05, 0.4, f'P/100: {np.round(np.sum(profit_c_list) / len(profit_c_list) * 100, 2)}$', color='purple', fontsize=15)
-    fig.text(0.05, 0.35, f'P/100 bb: {np.round(np.sum(rake_bb_list) / len(rake_bb_list) * 100, 2)}bb', color='brown', fontsize=15)
+    fig.text(0.05, 0.4, f'P/100: {np.round(np.sum((profit_c_list) + np.sum(jackpot_c_list)) / len(profit_c_list) * 100, 2)}$', color='purple', fontsize=15)
+    fig.text(0.05, 0.35, f'P/100 bb: {np.round((np.sum(profit_bb_list) + np.sum(jackpot_bb_list)) / len(profit_bb_list) * 100, 2)}bb', color='brown', fontsize=15)
 
     
     
